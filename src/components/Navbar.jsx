@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCurrentUser, clearCurrentUser } from "../utils/storage.js";
 
@@ -6,6 +6,7 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = getCurrentUser();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isDashboardActive = location.pathname === "/dashboard";
   const isProfileActive = location.pathname.startsWith("/profile");
@@ -13,6 +14,11 @@ function Navbar() {
   const handleLogout = () => {
     clearCurrentUser();
     navigate("/");
+    setIsMobileMenuOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -28,7 +34,8 @@ function Navbar() {
         Creative Showcase
       </Link>
 
-      <div>
+      {/* Desktop Navigation */}
+      <div className="navbar-desktop">
         {user ? (
           <>
             <Link
@@ -50,7 +57,7 @@ function Navbar() {
               }}
             >
               Profile
-              </Link>
+            </Link>
             <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
@@ -67,6 +74,67 @@ function Navbar() {
           </>
         )}
       </div>
+
+      {/* Hamburger Icon for Mobile */}
+      <button
+        className="hamburger-icon"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle mobile menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>
+        </svg>
+      </button>
+
+      {/* Mobile Menu Panel */}
+      <div className={`mobile-menu-panel ${isMobileMenuOpen ? 'open' : ''}`}>
+        <button 
+          className="close-menu-btn"
+          onClick={closeMobileMenu}
+          aria-label="Close mobile menu"
+        >
+          ×
+        </button>
+        
+        <div className="mobile-menu-content">
+          {user ? (
+            <>
+              <Link
+                to="/dashboard"
+                onClick={closeMobileMenu}
+                className={isDashboardActive ? "active" : ""}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to={`/profile/${user.username}`}
+                onClick={closeMobileMenu}
+                className={isProfileActive ? "active" : ""}
+              >
+                Profile
+              </Link>
+              <button onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" onClick={closeMobileMenu}>
+                <button className="login-btn">Login</button>
+              </Link>
+              <Link to="/signup" onClick={closeMobileMenu}>
+                <button className="signup-btn">Signup</button>
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="mobile-menu-overlay"
+          onClick={closeMobileMenu}
+        ></div>
+      )}
     </nav>
   );
 }
