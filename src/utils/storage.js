@@ -1,6 +1,6 @@
 // Utility functions for mock authentication and image storage using localStorage
 
-const STORAGE_KEY = 'creativeShowcase';
+const STORAGE_KEY = import.meta.env.VITE_STORAGE_KEY;
 
 function getStore() {
   const data = localStorage.getItem(STORAGE_KEY);
@@ -50,7 +50,7 @@ export function addImageForCurrentUser(base64) {
   if (!user) return;
   const store = getStore();
   const u = store.users[user.username];
-  u.images.push(base64);
+  u.images.push({ src: base64, uploadedAt: new Date().toISOString() });
   setStore(store);
 }
 
@@ -67,17 +67,36 @@ export function deleteImageForUser(username, index) {
 export function getImagesForUser(username) {
   const store = getStore();
   const user = store.users[username];
-  return user ? user.images : [];
+  if (!user) return [];
+  // Handle both old format (string) and new format (object)
+  return user.images.map(img => 
+    typeof img === 'string' ? { src: img, uploadedAt: new Date().toISOString() } : img
+  );
 }
 
 export function getAllImages() {
   const store = getStore();
-  // Return an array of { src, username } so callers can show authors if desired
   const all = [];
   Object.entries(store.users).forEach(([username, u]) => {
     (u.images || []).forEach((img) => {
-      all.push({ src: img, username });
+      const imgSrc = typeof img === 'string' ? img : img.src;
+      all.push({ src: imgSrc, username });
     });
   });
   return all;
+}
+
+export function getUserBio(username) {
+  const store = getStore();
+  const user = store.users[username];
+  return user?.bio || '';
+}
+
+export function updateUserBio(username, bio) {
+  const store = getStore();
+  const user = store.users[username];
+  if (!user) return false;
+  user.bio = bio;
+  setStore(store);
+  return true;
 }

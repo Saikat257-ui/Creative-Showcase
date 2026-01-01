@@ -30,7 +30,7 @@
 
 .masonry-item img:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* delete button overlay */
@@ -42,7 +42,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   border: none;
   width: 32px;
@@ -57,7 +57,7 @@
 }
 
 .delete-btn:hover {
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 /* username caption under images */
@@ -65,7 +65,7 @@
   position: absolute;
   left: 8px;
   bottom: 8px;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   padding: 6px 8px;
   border-radius: 6px;
