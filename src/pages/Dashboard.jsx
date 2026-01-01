@@ -80,7 +80,7 @@ function Dashboard() {
     <div className="dashboard-container">
       <div className="dashboard-header">
         <h1>Welcome Back, <span>{user.username}!</span></h1>
-        {/* <button className="dashboard-btn-primary">Log out</button> */}
+        <button className="dashboard-btn-primary" onClick={handleLogout}>Log out</button>
       </div>
 
       <div className="dashboard-content">
