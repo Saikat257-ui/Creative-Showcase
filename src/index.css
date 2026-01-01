@@ -732,6 +732,9 @@ input:focus {
   font-size: 0.95rem;
   color: #555;
   margin-top: 0.25rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 /* Tabs */
@@ -747,6 +750,10 @@ input:focus {
   padding: 0.4rem 1rem;
   font-size: 0.9rem;
   color: #444;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profile-tabs button.active {
@@ -806,6 +813,9 @@ input:focus {
   color: #333;
   font-size: 0.98rem;
   box-shadow: 0 6px 18px rgba(92, 107, 192, 0.06);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .edit-bio-btn {
