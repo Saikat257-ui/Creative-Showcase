@@ -11,15 +11,14 @@ import {
 
 function PublicProfile() {
   const { username } = useParams();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(() => getImagesForUser(username));
   const [activeTab, setActiveTab] = useState("gallery");
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState(() => getUserBio(username));
   const [isEditing, setIsEditing] = useState(false);
-  const [editBio, setEditBio] = useState('');
+  const [editBio, setEditBio] = useState(() => getUserBio(username));
 
   useEffect(() => {
-    const imgs = getImagesForUser(username);
-    setImages(imgs);
+    setImages(getImagesForUser(username));
     const userBio = getUserBio(username);
     setBio(userBio);
     setEditBio(userBio);
@@ -72,12 +71,14 @@ function PublicProfile() {
           >
             Gallery
           </button>
-          <button
-            className={activeTab === "about" ? "active" : ""}
-            onClick={() => setActiveTab("about")}
-          >
-            About {username}
-          </button>
+          {canDelete && (
+            <button
+              className={activeTab === "about" ? "active" : ""}
+              onClick={() => setActiveTab("about")}
+            >
+              About {username}
+            </button>
+          )}
         </div>
 
         {/* Content */}

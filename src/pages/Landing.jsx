@@ -48,7 +48,10 @@ function Landing() {
       </div>
       
       <div className="inset-frame">
-        <MasonryGrid images={displayImages} />
+        <MasonryGrid 
+          images={displayImages} 
+          disableModal={displayImages === PLACEHOLDERS}
+        />
       </div>
     </div>
   );

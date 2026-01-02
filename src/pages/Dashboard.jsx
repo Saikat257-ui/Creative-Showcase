@@ -8,7 +8,7 @@ import { Upload } from 'lucide-react';
 function Dashboard() {
   const navigate = useNavigate();
   const user = getCurrentUser();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(() => user ? getImagesForUser(user.username) : []);
   const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
@@ -90,12 +90,11 @@ function Dashboard() {
           <div className="section-card">
              <h2 className="section-title">Your Uploads</h2>
              <form 
-               className="upload-area" 
+               className={`upload-area ${dragActive ? 'active' : ''}`}
                onDragEnter={handleDrag} 
                onDragLeave={handleDrag} 
                onDragOver={handleDrag} 
                onDrop={handleDrop}
-               style={{ borderColor: dragActive ? '#5c6bc0' : '#dce0e9', backgroundColor: dragActive ? '#f0f2fa' : '#fcfcfc' }}
              >
                 <input 
                   type="file" 
