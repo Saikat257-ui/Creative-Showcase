@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCurrentUser, clearCurrentUser } from "../utils/storage.js";
 
@@ -7,6 +7,24 @@ function Navbar() {
   const location = useLocation();
   const user = getCurrentUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const isDashboardActive = location.pathname === "/dashboard";
   const isProfileActive = location.pathname.startsWith("/profile");
@@ -23,10 +41,9 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar"
+      className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}
       style={{
         padding: "1rem",
-        backgroundColor: "#fff",
         borderBottom: "1px solid #ddd",
       }}
     >
