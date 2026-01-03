@@ -1,7 +1,7 @@
 # Creative Showcase
 
 ## Project Overview
-A lightweight React application that demonstrates clean fundamentals, routing, mock authentication, and a CSS‑based masonry image gallery. All data is persisted in **localStorage**, making it a pure frontend product without any backend.
+A lightweight React application demonstrating clean fundamentals, routing, mock authentication, and a CSS-based masonry image gallery. All data is persisted in **localStorage**, making it a pure frontend product without any backend.
 
 ## Tech Stack
 - **React** (with Vite) 
@@ -54,6 +54,8 @@ A pure‑CSS masonry layout is implemented using **CSS columns** (`column-count`
 Note: localStorage size is limited (typically ~5MB per origin in many browsers). Storing Base64 images can quickly exhaust available space; this demo documents that limitation and is intended only for small uploads or toy data.
 
 ## Future Improvements
+These improvements are intentionally out of scope for this frontend-only assignment:
+
 - Replace localStorage with a real backend (e.g., Node/Express, database).
 - Use secure password hashing and authentication tokens.
 - Implement cloud storage for images (e.g., AWS S3, Cloudinary).
@@ -61,7 +63,7 @@ Note: localStorage size is limited (typically ~5MB per origin in many browsers).
 - Enhance UI/UX with a design system or component library.
 
 ## Deployment
-The app can be deployed to **Vercel** (or any static hosting) with a single command:
+The app is currently deployed to **Vercel** (or any static hosting) with a single command:
 
 ```bash
 npm run build
