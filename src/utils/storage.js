@@ -8,7 +8,17 @@ function getStore() {
 }
 
 function setStore(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    if (e.name === 'QuotaExceededError') {
+      alert('Image upload failed: Storage quota exceeded. Please remove some images or use smaller files.');
+    } else {
+      alert(`An unexpected error occurred: ${e.name}: ${e.message}`);
+    }
+    return false;
+  }
 }
 
 export function signup({ username, email, password }) {
@@ -18,9 +28,12 @@ export function signup({ username, email, password }) {
   }
   // store username inside the user object for easier consumption
   store.users[username] = { username, email, password, images: [] };
-  setStore(store);
-  // Auto login after signup
-  setCurrentUser({ username, email });
+  if (setStore(store)) {
+    // Auto login after signup
+    setCurrentUser({ username, email });
+    return true;
+  }
+  return false;
 }
 
 export function login({ username, password }) {
@@ -47,11 +60,11 @@ export function clearCurrentUser() {
 
 export function addImageForCurrentUser(base64) {
   const user = getCurrentUser();
-  if (!user) return;
+  if (!user) return false;
   const store = getStore();
   const u = store.users[user.username];
   u.images.push({ src: base64, uploadedAt: new Date().toISOString() });
-  setStore(store);
+  return setStore(store);
 }
 
 export function deleteImageForUser(username, index) {
@@ -60,8 +73,7 @@ export function deleteImageForUser(username, index) {
   if (!user) return false;
   if (index < 0 || index >= user.images.length) return false;
   user.images.splice(index, 1);
-  setStore(store);
-  return true;
+  return setStore(store);
 }
 
 export function getImagesForUser(username) {
@@ -97,6 +109,5 @@ export function updateUserBio(username, bio) {
   const user = store.users[username];
   if (!user) return false;
   user.bio = bio;
-  setStore(store);
-  return true;
+  return setStore(store);
 }

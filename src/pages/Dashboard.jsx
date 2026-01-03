@@ -28,8 +28,9 @@ function Dashboard() {
     const reader = new FileReader();
     reader.onloadend = () => {
       const result = reader.result;
-      addImageForCurrentUser(result);
-      setImages(getImagesForUser(user.username));
+      if (addImageForCurrentUser(result)) {
+        setImages(getImagesForUser(user.username));
+      }
     };
     reader.readAsDataURL(file);
   };
