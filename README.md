@@ -70,7 +70,9 @@ npm run build
 # The `dist` folder can be uploaded to Vercel
 ```
 
-Vercel automatically serves the `dist` directory and supports client‑side routing. Ensure the `vercel.json` (if used) includes a rewrite rule for SPA fallback.
+Vercel automatically serves the `dist` directory and supports client-side routing. Ensure the `vercel.json` (if used) includes a rewrite rule for SPA fallback.
+
+Deploy link: https://creative-showcase-iota.vercel.app/
 
 ---
 
