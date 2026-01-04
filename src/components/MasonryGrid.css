@@ -83,3 +83,12 @@
 .masonry-item .img-author a:hover {
   text-decoration: underline;
 }
+
+/* ================================= */
+/* Landing Page Placeholder Effects */
+/* ================================= */
+
+.masonry-grid.blur-placeholders img {
+  filter: blur(4px) brightness(0.85) saturate(0.9);
+  transform: none !important;
+}

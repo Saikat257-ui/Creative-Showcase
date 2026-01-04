@@ -309,6 +309,53 @@ input:focus {
   text-align: center;
 }
 
+
+
+
+/* ============================= */
+/* Landing Masonry Overlay */
+/* ============================= */
+
+.landing-masonry-wrapper {
+  position: relative;
+}
+
+.landing-masonry-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.landing-masonry-overlay h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e1e1e;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 0.8rem 1.6rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.landing-masonry-overlay p {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: #333;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+}
+
+
+
+
+
 /* Inset Bevel Frame */
 .inset-frame {
   border: 1px solid #ccc;
@@ -907,3 +954,5 @@ input:focus {
     font-size: 0.95rem;
   }
 }
+
+

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { getAllImages } from '../utils/storage';
-import MasonryGrid from '../components/MasonryGrid';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getAllImages } from "../utils/storage";
+import MasonryGrid from "../components/MasonryGrid";
 
 const PLACEHOLDERS = [
   "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=2070&auto=format&fit=crop",
@@ -22,10 +22,10 @@ function Landing() {
     // Fetch user uploads
     const userUploads = getAllImages();
     if (userUploads && userUploads.length > 0) {
-      // getAllImages returns { src, username }. 
+      // getAllImages returns { src, username }.
       // We want to pass the whole object to MasonryGrid so it can link to the profile.
       const uploadedItems = userUploads.reverse(); // Show newest first
-      
+
       // "But the previous unsplash images ... should get disappeared when images got uploade by the user"
       // So if we have ANY uploads, show ONLY uploads.
       setDisplayImages(uploadedItems);
@@ -36,22 +36,34 @@ function Landing() {
     <div className="container">
       <div className="hero">
         <h1>Showcase Your Creative Moments</h1>
-        <p>Upload, organize, and share your artwork in a calm, elegant gallery.</p>
-        <div style={{ marginTop: '2rem' }}>
+        <p>
+          Upload, organize, and share your artwork in a calm, elegant gallery.
+        </p>
+        <div style={{ marginTop: "2rem" }}>
           <Link to="/login">
-            <button style={{ padding: '0.8rem 2.5rem', fontSize: '1.1rem' }}>Get Started</button>
+            <button style={{ padding: "0.8rem 2.5rem", fontSize: "1.1rem" }}>
+              Get Started
+            </button>
           </Link>
           <p className="landing-subtitle">
             Sign up for free and start sharing your art
           </p>
         </div>
       </div>
-      
-      <div className="inset-frame">
-        <MasonryGrid 
-          images={displayImages} 
+
+      <div className="inset-frame landing-masonry-wrapper">
+        <MasonryGrid
+          images={displayImages}
           disableModal={displayImages === PLACEHOLDERS}
+          blurPlaceholders={displayImages === PLACEHOLDERS}
         />
+
+        {displayImages === PLACEHOLDERS && (
+          <div className="landing-masonry-overlay">
+            <h2>A gallery for the images you create</h2>
+            <p>Upload and share your visuals in a calm, elegant space</p>
+          </div>
+        )}
       </div>
     </div>
   );

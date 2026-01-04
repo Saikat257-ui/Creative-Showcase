@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ImageModal from './ImageModal';
 import './MasonryGrid.css';
 
-function MasonryGrid({ images, onDelete, disableModal = false }) {
+function MasonryGrid({ images, onDelete, disableModal, blurPlaceholders = false }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageClick = (src) => {
@@ -18,7 +18,7 @@ function MasonryGrid({ images, onDelete, disableModal = false }) {
 
   return (
     <>
-      <div className="masonry-grid">
+      <div className={`masonry-grid ${blurPlaceholders ? "blur-placeholders" : ""}`}>
         {images.map((item, idx) => {
           // support either simple string sources or objects { src, username }
           const src = typeof item === 'string' ? item : item?.src;
